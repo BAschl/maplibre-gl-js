@@ -95,6 +95,29 @@
         "delay": 0
       }
     },
+    "sky": {
+      "type": "sky",
+      "doc": "A global transition definition to use as a default across properties, to be used for timing transitions between one value and the next when no property-specific transition is set. Collision-based symbol fading is controlled independently of the style's `transition` property.",
+      "example": {
+          "sky-gradient": [
+              "interpolate",
+              ["linear"],
+              ["sky-height"],
+              0, "black",
+              0.25, "#77BADF",
+              0.48, "#87CAEF",
+              0.51, "#87CAEF",
+              0.57, "#0D4189",
+              0.7, "#022454",
+              1, "#022454"
+          ],
+          "curvature": 17,
+          "zoomCurvatureInfluence": 3,
+          "zoomFOVInfluence": 1,
+          "verticalFOV": 90,
+          "skyHorizon": 0.65
+      }
+   },
     "layers": {
       "required": true,
       "type": "array",
@@ -3214,6 +3237,11 @@
           }
         }
       },
+      "sky-height": {
+        "doc": "Gets the height of the sky from 0 (pitch 0) to 1 (pitch 180). Can only be used in the 'sky-gradient' property",
+        "group": "Feature data"
+       
+      },
       "accumulated": {
         "doc": "Gets the value of a cluster property accumulated so far. Can only be used in the `clusterProperties` option of a clustered GeoJSON source.",
         "group": "Feature data",
@@ -3853,6 +3881,64 @@
           "js": "2.2.0"
         }
       }
+    }
+  },
+  "sky": {
+    "sky-gradient": {
+      "type": "color",
+      "doc": "Defines the colorramp of the sky starting from the bottom (below the map).",
+      "transition": false,
+      "expression": {
+        "interpolated": true,
+        "parameters": [
+          "sky-height"
+        ]
+      },
+      "default":{
+        "sky-gradient": [
+          "interpolate",
+          ["linear"],
+          ["sky-height"],
+          0, "black",
+          0.25, "#77BADF",
+          0.48, "#87CAEF",
+          0.51, "#87CAEF",
+          0.57, "#0D4189",
+          0.7, "#022454",
+          1, "#022454"
+        ]
+      }
+    },
+    "curvature":{
+      "type": "number",
+      "doc": "The curvature of the sky up and down from the \"skyHorizon\". ",
+      "default": 17
+    },
+    "verticalFOV":{
+      "type": "number",
+      "doc": "Field of view of the sky in degrees.",
+      "default": 90,
+      "minimum": 1,
+      "maximum": 180
+    },
+    "zoomCurvatureInfluence":{
+      "type": "number",
+      "doc": "When zooming in the curvature decreases. This property defines by how much. A value of \"0\" doesn't change the curvature when zooming. With \"1\" it changes linearly with \"zoom\"",
+      "default": 3,
+      "minimum": 0
+    },
+    "zoomFOVInfluence":{
+      "type": "number",
+      "doc": "When zooming in the field of view decreases. This property defines by how much. A value of \"0\" doesn't change the field of view when zooming. With \"1\" it changes linearly with \"zoom\"",
+      "default": 2,
+      "minimum": 0
+    },
+    "skyHorizon":{
+      "type": "number",
+      "doc": "The horizon of the sky around which it curves. Below it curves down and above it curves up. Inbetween the curves the color is constant.",
+      "default": 0.65,
+      "minimum": 0,
+      "maximum": 1
     }
   },
   "paint": [

@@ -22,6 +22,7 @@ import validateString from './validate_string';
 import validateFormatted from './validate_formatted';
 import validateImage from './validate_image';
 import validatePadding from './validate_padding';
+import validateSky from './validate_sky';
 
 const VALIDATORS = {
     '*'() {
@@ -39,6 +40,7 @@ const VALIDATORS = {
     'object': validateObject,
     'source': validateSource,
     'light': validateLight,
+    'sky': validateSky,
     'terrain': validateTerrain,
     'string': validateString,
     'formatted': validateFormatted,

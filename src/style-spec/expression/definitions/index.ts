@@ -210,6 +210,11 @@ CompoundExpression.register(expressions, {
         [],
         (ctx) => ctx.globals.lineProgress || 0
     ],
+    'sky-height': [
+        NumberType,
+        [],
+        (ctx) => ctx.globals.skyHeight || 0
+    ],
     'accumulated': [
         ValueType,
         [],

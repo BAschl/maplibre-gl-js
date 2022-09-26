@@ -62,6 +62,7 @@ import type {CustomLayerInterface} from './style_layer/custom_style_layer';
 import type {Validator} from './validate_style';
 import type {OverscaledTileID} from '../source/tile_id';
 import Terrain from '../render/terrain';
+import Sky from '../render/sky';
 
 const supportedDiffOperations = pick(diffOperations, [
     'addLayer',
@@ -115,6 +116,7 @@ class Style extends Evented {
     lineAtlas: LineAtlas;
     light: Light;
     terrain: Terrain;
+    sky: Sky;
 
     _request: Cancelable;
     _spriteRequest: Cancelable;
@@ -283,6 +285,9 @@ class Style extends Evented {
         this.light = new Light(this.stylesheet.light);
 
         this.setTerrain(this.stylesheet.terrain);
+
+        if (this.stylesheet.sky)
+            this.sky = new Sky(this.map.painter.context, this.stylesheet.sky);
 
         this.fire(new Event('data', {dataType: 'style'}));
         this.fire(new Event('style.load'));

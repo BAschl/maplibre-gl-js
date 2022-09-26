@@ -32,6 +32,7 @@ import background from './draw_background';
 import debug, {drawDebugPadding} from './draw_debug';
 import custom from './draw_custom';
 import {drawDepth, drawCoords} from './draw_terrain';
+import drawSky from './draw_sky';
 import {OverscaledTileID} from '../source/tile_id';
 
 const draw = {
@@ -480,6 +481,10 @@ class Painter {
 
             this._renderTileClippingMasks(layer, coordsAscending[layer.source]);
             this.renderLayer(this, sourceCache, layer, coords);
+        }
+
+        if (this.style.sky) {
+            drawSky(this, this.style.sky);
         }
 
         if (this.options.showTileBoundaries) {
